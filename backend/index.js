@@ -13,7 +13,7 @@ const PORT = process.env.PORT || 8000
 
 app.use(express.json())
 app.use(cors({
-  origin:"http://localhost:3000",
+  origin:"https://real-time-chat-app-fybr.onrender.com",
   credentials:true
 })) 
 app.use(express.urlencoded({extended : true}))
