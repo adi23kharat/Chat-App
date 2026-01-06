@@ -5,7 +5,7 @@ import {Provider} from 'react-redux'
 import './index.css';
 import App from './App';
 import {store} from './redux/store.js'
-export const serverURL = 'http://localhost:5000'
+export const serverURL = 'https://chat-app-backend-vqd4.onrender.com'
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
