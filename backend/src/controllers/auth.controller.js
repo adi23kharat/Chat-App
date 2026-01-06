@@ -30,9 +30,10 @@ export const registerUser = async(req,res)=>{
 
   const token = jwt.sign({id:user._id},process.env.JWT_SECRET)
   res.cookie("token",token,{
+    maxAge: 7*24*60*60*1000
     httpOnly:true,
-    sameSite:'Strict', 
-    secure:false
+    sameSite:'None', 
+    secure:true
   })
 
   return res.status(201).json({
@@ -63,8 +64,8 @@ export const loginUser = async(req,res)=>{
   const token = jwt.sign({id:user._id},process.env.JWT_SECRET)
   res.cookie("token",token,{
     httpOnly:true,
-    sameSite:'Strict',
-    secure:false
+    sameSite:'None',
+    secure:true
   })
   return res.status(200).json({
     message:"user login Successfully !!!",
