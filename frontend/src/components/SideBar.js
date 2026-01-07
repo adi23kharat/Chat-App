@@ -51,12 +51,12 @@ useEffect(()=>{
 },[input])
   return (
     <div className={`lg:w-[30%] relative w-full h-full lg:block ${!selectedUserData?"flex-col":"hidden"} bg-slate-200`}>
-      <div onClick={handlelogout} className='w-[50px] h-[50px] fixed bottom-5 left-4 rounded-full shadow-gray-700 shadow-lg flex items-center justify-center bg-[#53abe1] mt-2'>
+      <div onClick={handlelogout} className=' z-[999] w-[50px] h-[50px] fixed bottom-5 left-4 rounded-full shadow-gray-700 shadow-lg flex items-center justify-center bg-[#53abe1] mt-2'>
        <i className="ri-logout-circle-line text-[25px]"></i>
       </div>
 
     {input.length>0 && search &&
-      <div className='flex pl-3 absolute top-[230px] w-full pt-2 mt-3 rounded-t-[10%] rounded-b-[10%] border-b-2 border-gray-700 bg-[#a1b0b0] h-[50%] overflow-auto flex-col gap-[10px] z-[999]  '>
+      <div className='flex pl-3 absolute top-[180px] w-full pt-2 mt-3 rounded-t-[10%] rounded-b-[10%] border-b-2 border-gray-700 bg-[#a1b0b0] h-[50%] overflow-auto flex-col gap-[10px] z-[999]  '>
           {
             searchData?.map((users)=>(
               <div onClick={()=>{dispatch(setSelectedUserData(users) ,
@@ -70,7 +70,7 @@ useEffect(()=>{
           </div>
            
         </div>
-        <h1 className='text-gray-800 font-semibold text-[18px]'>{users.name}</h1>
+        <h1 className='text-gray-800 font-semibold text-[18px]'>{users.name || users.username}</h1>
         </div>
             ))
           }
@@ -78,7 +78,7 @@ useEffect(()=>{
     }
 
       <div className='w-full h-[250px] bg-[#53abe1] rounded-b-[20%] shadow-gray-400 shadow-lg flex flex-col justify-center px-[20px]'>
-      <h1 className='text-white font-bold text-[25px]'>Chatly</h1>
+      <h1 className='text-white font-bold mt-3  text-[25px]'>Chatly</h1>
       {userData && (
       <div className='w-full flex justify-between items-center'>
         <h1 className='text-gray-800 font-bold text-[20px]'>Hii, {userData?.user?.name || 'User'}</h1>
@@ -91,14 +91,14 @@ useEffect(()=>{
     <div className='w-full flex items-center gap-[20px] overflow-y-auto py-[20px]'>
 
      {
-       !search && <div onClick={()=>{setSearch(true)}} className='w-[50px] h-[50px] rounded-full shadow-gray-700 shadow-lg flex items-center justify-center bg-white mt-2'>
+       !search && <div onClick={()=>{setSearch(true)}} className='w-[50px] h-[50px] rounded-full shadow-gray-700 shadow-md flex items-center justify-center bg-white mt-2'>
        <i className="ri-search-line text-[22px]"></i>
       </div>
      }
 
      {
        search && 
-       <form className='relative w-full h-[50px] bg-white shadow-gray-700 shadow-lg flex items-center gap-[10px] rounded-full overflow-hidden mt-2'>
+       <form className='relative w-full h-[50px] bg-white shadow-gray-700 shadow-md flex items-center gap-[10px] rounded-full overflow-hidden mt-2'>
 
         <i className="ri-search-line text-[22px] pl-[15px]"></i>
         <input type="text" value={input} onChange={(e)=>{setInput(e.target.value)}} className='border-0 w-full h-full outline-0 p-[10px] ' placeholder='search users...'/>
@@ -123,7 +123,7 @@ useEffect(()=>{
      </div>
     
       </div>
-      <div className='mt-2 w-full h-[55%] overflow-auto flex flex-col gap-[15px] items-center'>
+      <div className='mt-2 w-full h-[68%] overflow-auto flex flex-col gap-[15px] items-center'>
         {
       Array.isArray(otherUserData) && otherUserData.map((users)=>(
         <div onClick={()=>dispatch(setSelectedUserData(users))} className='w-[95%] h-[50px] flex justify-start  items-center gap-[20px] shadow-gray-500 bg-white shadow-lg rounded-full hover:bg-[#b2ccdf]'>
@@ -136,7 +136,7 @@ useEffect(()=>{
           <span className='absolute right-[4px] bottom-[-3px] bg-[#61e344] rounded-full w-[16px] h-[16px]'></span>
           } 
         </div>
-        <h1 className='text-gray-800 font-semibold text-[18px]'>{users.name}</h1>
+        <h1 className='text-gray-800 font-semibold text-[18px]'>{users.name || users.username}</h1>
         </div>
       ))
      }
