@@ -21,9 +21,10 @@ const useOtherUsers = () => {
         console.log(err)
       }
     }
-
-    fetchUser()
-  }, [dispatch])
+      if(userData){
+        fetchUser()
+      }
+  }, [dispatch,userData])
 
   return otherUserData
   
