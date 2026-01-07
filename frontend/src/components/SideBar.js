@@ -56,7 +56,7 @@ useEffect(()=>{
       </div>
 
     {input.length>0 && search &&
-      <div className='flex pl-3 absolute lg:top-[180px] top-[190px] w-full pt-2 mt-3 rounded-t-[10%] rounded-b-[10%] border-b-2 border-gray-700 bg-[#a1b0b0] h-[50%] overflow-auto flex-col gap-[10px] z-[999]  '>
+      <div className='flex pl-3 absolute lg:top-[180px] top-[200px] w-full pt-2 mt-3 rounded-t-[10%] rounded-b-[10%] border-b-2 border-gray-700 bg-[#a1b0b0] h-[50%] overflow-auto flex-col gap-[10px] z-[999]  '>
           {
             searchData?.map((users)=>(
               <div onClick={()=>{dispatch(setSelectedUserData(users) ,
