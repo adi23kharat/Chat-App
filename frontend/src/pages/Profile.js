@@ -8,22 +8,73 @@ import dp from '../assets/dp.webp'
 import 'remixicon/fonts/remixicon.css'
 import { serverURL } from '..'
 
+// Function to compress image
+const compressImage = (file) => {
+  return new Promise((resolve) => {
+    const reader = new FileReader()
+    reader.readAsDataURL(file)
+    reader.onload = (event) => {
+      const img = new Image()
+      img.src = event.target.result
+      img.onload = () => {
+        const canvas = document.createElement('canvas')
+        let width = img.width
+        let height = img.height
+        
+        // Resize if image is larger than 800px
+        if (width > height) {
+          if (width > 800) {
+            height = Math.round((height * 800) / width)
+            width = 800
+          }
+        } else {
+          if (height > 800) {
+            width = Math.round((width * 800) / height)
+            height = 800
+          }
+        }
+        
+        canvas.width = width
+        canvas.height = height
+        const ctx = canvas.getContext('2d')
+        ctx.drawImage(img, 0, 0, width, height)
+        
+        canvas.toBlob(
+          (blob) => {
+            resolve(blob)
+          },
+          'image/jpeg',
+          0.8 // 80% quality
+        )
+      }
+    }
+  })
+}
+
 const Profile = () => {
   const dispatch = useDispatch()
   const {userData} = useSelector(state=>state.user)
   const navigate = useNavigate()
   const [name, setName] = useState()
-  const [frontImage, setFrontImage] = useState(userData.image || dp)
+  const [frontImage, setFrontImage] = useState(userData?.user?.image || dp)
   const [backImage, setBackImage] = useState(null)
   const imageRef = useRef()
   const [save, setSave] = useState(false)
 
   const handleImage = (e)=>{
-    
-    let file = e.target.files && e.target.files[0]
-    setBackImage(file)
-    // console.log(backImage)
-    setFrontImage(URL.createObjectURL(file))
+    const file = e.target.files && e.target.files[0]
+    if(!file) return
+
+    // compress the image and convert back to File
+    compressImage(file).then((blob)=>{
+      const compressedFile = new File([blob], file.name, { type: 'image/jpeg' })
+      setBackImage(compressedFile)
+      setFrontImage(URL.createObjectURL(compressedFile))
+    }).catch((err)=>{
+      // fallback to original file on error
+      setBackImage(file)
+      setFrontImage(URL.createObjectURL(file))
+    })
   }
 
   const handleprofile = async(e)=>{
